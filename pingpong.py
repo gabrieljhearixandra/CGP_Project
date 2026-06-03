@@ -42,7 +42,7 @@ CUSTOM_FONT = register_font()
 #    game_music.wav   – loops during any game match
 #    win_music.wav    – plays once when a player wins
 #    Boing.wav        – plays when the ball hits a paddle
-#    miss.wav         – plays when the ball passes a paddle (miss / point scored)
+#    miss.wav         – plays when the ball passes a paddle (miss / point s-*-*--*cored)
 #    powerup.wav      – plays when a power-up is collected
 #
 #  Use the 🔊 Sound ON / 🔇 Sound OFF button in the lobby to mute everything.
@@ -341,7 +341,6 @@ POWER-UPS
     Ball Slowdown    Ball speed halved for 5s (both players)
     Double Points    Your next score counts as 2 points
     Invisible Paddle Your paddle hides for 3s (still deflects!)
-    Paddle Swap      Both paddles instantly swap sides!
 
   Bubbles disappear after 6s if not collected.
   A new one spawns 5-10s later. Only one at a time.
@@ -847,7 +846,7 @@ def run_game(mode, play_mode_str, bg_path, color_pa, color_pb, lobby_window):
     #  POWER-UPS  (only active in "powerups" mode)
     # ══════════════════════════════════════════════════════════════════════════
     POWERUPS = ["long_paddle", "passive_speed", "shrink_opponent",
-                "ball_slowdown", "double_points", "invisible_paddle", "paddle_swap"]
+                "ball_slowdown", "double_points", "invisible_paddle"]
 
     bubble = turtle.Turtle()
     bubble.speed(0); bubble.shape("circle"); bubble.penup()
@@ -945,11 +944,6 @@ def run_game(mode, play_mode_str, bg_path, color_pa, color_pb, lobby_window):
             pad_c.hideturtle(); pad_c._visible = False
             effects[f"invisible_{collector}"] = {"active": True, "expire": now + 3}
             hud_show(f"invisible_{collector}", "Invisible 3s", 3, cx, -250, "#aaffaa")
-        elif pu == "paddle_swap":
-            ax, ay  = paddle_a.xcor(), paddle_a.ycor()
-            bx2, by = paddle_b.xcor(), paddle_b.ycor()
-            paddle_a.goto(bx2, ay); paddle_b.goto(ax, by)
-            hud_show("swap", "Paddles Swapped!", 2, 0, 200, "white")
 
         play_sfx("powerup.wav")
 
